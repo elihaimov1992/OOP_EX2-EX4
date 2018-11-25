@@ -6,18 +6,29 @@ public class MyCoords implements coords_converter{
 
 	public static void main(String[] args) {
 		MyCoords mc = new MyCoords();
-		Point3D p0 = new Point3D(32, 45);
-		Point3D p1 = new Point3D(33, 46);
+		Point3D p0 = new Point3D(0, 0,120);
+		Point3D p1 = new Point3D(60, 102,900);
+		Point3D meters = new Point3D(0,40030);
+		Point3D p2 = new Point3D(0,360);
 		System.out.println("Azimuth = " + mc.azimuth_elevation_dist(p0, p1)[0]);
 		System.out.println("Elevation = " + mc.azimuth_elevation_dist(p0, p1)[1]);
 		System.out.println("Distance = " + mc.azimuth_elevation_dist(p0, p1)[2]);
+		System.out.println(mc.add(p0,meters));
+		System.out.println(mc.vector3D(p0,p2));
 	}
-
+	
+	/**
+	 * We used these websites:
+	 * stackoverflow.com/questions/7477003/calculating-new-longitude-latitude-from-old-n-meters
+	 */
 	@Override
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {
-		Point3D new_point = new Point3D(gps);
-		new_point.add(local_vector_in_meter);
-		return new_point;
+		int radius = 6371000;
+		double meter_inDegree_lat = 111000;   // 111 km  
+		double meter_inDegree_lon = (((2.0 * Math.PI / 360.0) * radius * Math.cos(gps.x()))/1000.0);   
+		double new_latitude= gps.x() + (1.0/meter_inDegree_lat) * local_vector_in_meter.x();
+		double new_longitude= gps.y() + (1.0/meter_inDegree_lon) * local_vector_in_meter.y();
+		return new Point3D(new_latitude,new_longitude);
 	}
 
 	@Override
@@ -34,10 +45,12 @@ public class MyCoords implements coords_converter{
 
 	@Override
 	public Point3D vector3D(Point3D gps0, Point3D gps1) {
-		double x_diff = gps0.distance3D(gps1.x(),gps0.y(),gps0.z());
-		double y_diff = gps0.distance3D(gps0.x(),gps1.y(),gps0.z());
-		double z_diff = gps0.distance3D(gps0.x(),gps0.y(),gps1.z());
-		return new Point3D(x_diff,y_diff,z_diff);
+		int radius = 6371000;
+		double meter_inDegree_lat = 111000;   // 111 km  
+		double meter_inDegree_lon = (((2.0 * Math.PI / 360.0) * radius * Math.cos(gps0.x()))/1000.0);
+		double new_latitude=meter_inDegree_lat*(gps1.x()-gps0.x());
+		double new_longitude=meter_inDegree_lon*(gps1.y()-gps0.y());
+		return new Point3D(new_latitude,new_longitude);
 	}
 
 	@Override
@@ -45,8 +58,10 @@ public class MyCoords implements coords_converter{
 	 * We used these websites:
 	 * https://www.omnicalculator.com/other/azimuth#how-to-calculate-the-azimuth-from-latitude-and-longitude
 	 * https://www.photopills.com/articles/understanding-azimuth-and-elevation
+	 * http://tchester.org/sgm/analysis/peaks/how_to_get_view_params.html#elevation
 	 */
 	public double[] azimuth_elevation_dist(Point3D gps0, Point3D gps1) {
+		int radius = 6371000;
 		double[] answer = new double[3];
 		double lat0 = Math.toRadians(gps0.x()); double lon0 = Math.toRadians(gps0.y());
 		double lat1 = Math.toRadians(gps1.x()); double lon1 = Math.toRadians(gps1.y());
@@ -55,7 +70,7 @@ public class MyCoords implements coords_converter{
 		double azimuth = Math.atan2(Math.sin(dlon) * Math.cos(lat1), Math.cos(lat0) * Math.sin(lat1) - Math.sin(lat0)
 						 * Math.cos(lat1) * Math.cos(dlon));
 		double distance = distance3d(gps0, gps1);
-		double elevation = Math.asin(distance3d(new Point3D(lat1, lat0), gps1)/distance3d(gps0, gps1));
+		double elevation = Math.toDegrees(((gps1.z()-gps0.z())/distance)-(distance/(2*radius)));
 		answer[0] = Math.toDegrees(azimuth);
 		answer[1] = elevation;
 		answer[2] = distance;
