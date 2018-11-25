@@ -6,15 +6,15 @@ public class MyCoords implements coords_converter{
 
 	public static void main(String[] args) {
 		MyCoords mc = new MyCoords();
-		Point3D p0 = new Point3D(0, 0,120);
+		Point3D p0 = new Point3D(32, 45,120);
 		Point3D p1 = new Point3D(60, 102,900);
-		Point3D meters = new Point3D(0,40030);
+		Point3D meters = new Point3D(100000000,40030);
 		Point3D p2 = new Point3D(0,360);
 		System.out.println("Azimuth = " + mc.azimuth_elevation_dist(p0, p1)[0]);
 		System.out.println("Elevation = " + mc.azimuth_elevation_dist(p0, p1)[1]);
 		System.out.println("Distance = " + mc.azimuth_elevation_dist(p0, p1)[2]);
 		System.out.println(mc.add(p0,meters));
-		System.out.println(mc.vector3D(p0,p2));
+		//System.out.println(mc.vector3D(p0,p2));
 	}
 	
 	/**
@@ -28,6 +28,26 @@ public class MyCoords implements coords_converter{
 		double meter_inDegree_lon = (((2.0 * Math.PI / 360.0) * radius * Math.cos(gps.x()))/1000.0);   
 		double new_latitude= gps.x() + (1.0/meter_inDegree_lat) * local_vector_in_meter.x();
 		double new_longitude= gps.y() + (1.0/meter_inDegree_lon) * local_vector_in_meter.y();
+		if(new_longitude>0){
+			while(new_longitude>180){
+				new_longitude=new_longitude-180;
+			}
+		}
+		else if(new_longitude<0) {
+			while(new_longitude<180){
+				new_longitude=new_longitude+180;
+			}
+		}
+		if(new_latitude>0){
+			while(new_latitude>90){
+				new_latitude=new_latitude-90;
+			}
+		}
+		else if(new_latitude<0) {
+			while(new_latitude<90){
+				new_latitude=new_latitude+90;
+			}
+		}
 		return new Point3D(new_latitude,new_longitude);
 	}
 
