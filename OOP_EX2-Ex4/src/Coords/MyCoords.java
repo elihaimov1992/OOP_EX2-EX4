@@ -4,18 +4,18 @@ import Geom.Point3D;
 
 public class MyCoords implements coords_converter{
 
-	public static void main(String[] args) {
-		MyCoords mc = new MyCoords();
-		Point3D p0 = new Point3D(32, 45,120);
-		Point3D p1 = new Point3D(60, 102,900);
-		Point3D meters = new Point3D(100000000,40030);
-		Point3D p2 = new Point3D(0,360);
-		System.out.println("Azimuth = " + mc.azimuth_elevation_dist(p0, p1)[0]);
-		System.out.println("Elevation = " + mc.azimuth_elevation_dist(p0, p1)[1]);
-		System.out.println("Distance = " + mc.azimuth_elevation_dist(p0, p1)[2]);
-		System.out.println(mc.add(p0,meters));
-		//System.out.println(mc.vector3D(p0,p2));
-	}
+//	public static void main(String[] args) {
+//		MyCoords mc = new MyCoords();
+//		Point3D p0 = new Point3D(32, 45,120);
+//		Point3D p1 = new Point3D(60, 102,900);
+//		Point3D meters = new Point3D(100000000,40030);
+//		Point3D p2 = new Point3D(0,360);
+//		System.out.println("Azimuth = " + mc.azimuth_elevation_dist(p0, p1)[0]);
+//		System.out.println("Elevation = " + mc.azimuth_elevation_dist(p0, p1)[1]);
+//		System.out.println("Distance = " + mc.azimuth_elevation_dist(p0, p1)[2]);
+//		System.out.println(mc.add(p0,meters));
+//		//System.out.println(mc.vector3D(p0,p2));
+//	}
 	
 	/**
 	 * We used these websites:
