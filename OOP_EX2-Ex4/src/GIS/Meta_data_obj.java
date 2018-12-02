@@ -1,41 +1,39 @@
 package GIS;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
 import Geom.Point3D;
-import gapchenko.llttz.Converter;
-import gapchenko.llttz.IConverter;
-import gapchenko.llttz.stores.TimeZoneListStore;
+//import gapchenko.llttz.Converter;
+//import gapchenko.llttz.IConverter;
+//import gapchenko.llttz.stores.TimeZoneListStore;
 
 public class Meta_data_obj implements Meta_data{
 
 	private Point3D point = new Point3D(0,0,0);
-	private String mac;
-	private String ssid;
-	private String authMode;
-	private Date firstSeen;
-	private int channel;
-	private int rssi;
+	private String name;
+	private String bssid;
+	private String capabilities;
+	private int frequency;
+	private long timestamp;
+	private Date date;
 	private double currentAltitude;
 	private double currentLongitude;
 	private double altitudeMeters;
-	private double accuracyMeters;
-	private String type;
 	
-	public void set_meta_data(String mac, String ssid, String authMode, Date firstSeen, int channel, int rssi,
-			double currentAltitude, double currentLongitude, double altitudeMeters, double accuracyMeters, String type) {
-		this.mac = mac;
-		this.ssid = ssid;
-		this.authMode = authMode;
-		this.firstSeen = firstSeen;
-		this.channel= channel;
-		this.rssi=rssi;
+	public void set_meta_data(String name, String bssid, String capabilities, int frequency, long timestamp, String dateString,
+			double currentAltitude, double currentLongitude, double altitudeMeters) {
+		this.name = name;
+		this.bssid = bssid;
+		this.capabilities = capabilities;
+		this.frequency = frequency;
+		this.timestamp = timestamp;
 		this.currentAltitude=currentAltitude;
 		this.currentLongitude=currentLongitude;
 		this.altitudeMeters=altitudeMeters;
-		this.accuracyMeters=accuracyMeters;
-		this.type=type;
+		setDate(dateString);
 	}
 	
 	public Point3D getPoint() {
@@ -47,15 +45,30 @@ public class Meta_data_obj implements Meta_data{
 	 * This function uses the library Llttz
 	 * https://github.com/agap/llttz
 	 */
+//	public long getUTC() {
+//		IConverter iconv = Converter.getInstance(TimeZoneListStore.class);
+//		TimeZone tz = iconv.getTimeZone(point.x(), point.y());
+//		return tz.getRawOffset();
+//	}
+	
 	public long getUTC() {
-		IConverter iconv = Converter.getInstance(TimeZoneListStore.class);
-		TimeZone tz = iconv.getTimeZone(point.x(), point.y());
-		return tz.getRawOffset();
+		return timestamp;
 	}
 
 	@Override
 	public Point3D get_Orientation() {
 		return null;
+	}
+	
+	private void setDate(String dateString) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			Date date = format.parse (dateString);
+			this.date = date;
+		}
+		catch(ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

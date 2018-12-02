@@ -17,6 +17,11 @@ public class GIS_element_obj implements GIS_element{
 	public Meta_data getData() {
 		return data;
 	}
+	
+	public void setData(String name, String bssid, String capabilities, int frequency, long timestamp, String dateString, double currentAltitude, double currentLongitude,
+			double altitudeMeters) {
+		data.set_meta_data(name, bssid, capabilities, frequency, timestamp, dateString, currentAltitude, currentLongitude, altitudeMeters);;
+	}
 
 	@Override
 	public void translate(Point3D vec) {
