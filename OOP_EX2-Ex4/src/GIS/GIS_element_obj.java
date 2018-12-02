@@ -18,9 +18,9 @@ public class GIS_element_obj implements GIS_element{
 		return data;
 	}
 	
-	public void setData(String name, String bssid, String capabilities, int frequency, long timestamp, String dateString, double currentAltitude, double currentLongitude,
+	public void setData(String name, String bssid, String capabilities, String dateString, double currentLatitude, double currentLongitude,
 			double altitudeMeters) {
-		data.set_meta_data(name, bssid, capabilities, frequency, timestamp, dateString, currentAltitude, currentLongitude, altitudeMeters);;
+		data.set_meta_data(name, bssid, capabilities, dateString, currentLatitude, currentLongitude, altitudeMeters);
 	}
 
 	@Override

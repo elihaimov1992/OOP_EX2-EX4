@@ -16,24 +16,22 @@ public class Meta_data_obj implements Meta_data{
 	private String name;
 	private String bssid;
 	private String capabilities;
-	private int frequency;
 	private long timestamp;
 	private Date date;
-	private double currentAltitude;
+	private double currentLatitude;
 	private double currentLongitude;
 	private double altitudeMeters;
 	
-	public void set_meta_data(String name, String bssid, String capabilities, int frequency, long timestamp, String dateString,
-			double currentAltitude, double currentLongitude, double altitudeMeters) {
+	public void set_meta_data(String name, String bssid, String capabilities, String dateString,
+			double currentLatitude, double currentLongitude, double altitudeMeters) {
 		this.name = name;
 		this.bssid = bssid;
 		this.capabilities = capabilities;
-		this.frequency = frequency;
-		this.timestamp = timestamp;
-		this.currentAltitude=currentAltitude;
+		this.currentLatitude=currentLatitude;
 		this.currentLongitude=currentLongitude;
 		this.altitudeMeters=altitudeMeters;
 		setDate(dateString);
+		this.timestamp = date.getTime();
 	}
 	
 	public Point3D getPoint() {
