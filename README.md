@@ -1,6 +1,9 @@
 <h1 align="center">
-  OOP_EX2-Ex4
+  Object Oriented Programming - Exercise 2
 </h1>
+<h3 align="center">
+  Basic GIS
+</h3>
 <h4 align="center">
   Eli Haimov (308019306), Elad Cohen (307993030), Yosef Golubchik (209195353)
 </h4>
