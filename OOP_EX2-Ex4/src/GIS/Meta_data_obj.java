@@ -20,6 +20,38 @@ public class Meta_data_obj implements Meta_data{
 	private Date date;
 	private double currentLatitude;
 	private double currentLongitude;
+	public String getName() {
+		return name;
+	}
+
+	public String getBssid() {
+		return bssid;
+	}
+
+	public String getCapabilities() {
+		return capabilities;
+	}
+
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public double getCurrentLatitude() {
+		return currentLatitude;
+	}
+
+	public double getCurrentLongitude() {
+		return currentLongitude;
+	}
+
+	public double getAltitudeMeters() {
+		return altitudeMeters;
+	}
+
 	private double altitudeMeters;
 	
 	public void set_meta_data(String name, String bssid, String capabilities, String dateString,
