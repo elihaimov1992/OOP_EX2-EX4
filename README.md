@@ -5,12 +5,10 @@
   Eli Haimov (308019306), Elad Cohen (307993030), Yosef Golubchik (209195353)
 </h4>
 
-
-This Github project represents a basic geographic information system (GIS).
-It supports the creation of GPS points represented by (latitude, longitude, altitude) and operations on those points:
-addition of points, distance between points, vector between points...
-It also supports the conversion of csv files into GIS daat structures, and conversion of those data structures into a kml file.
-
+<p>This Github project represents a basic geographic information system (GIS).</p>
+<p>It supports the creation of GPS points represented by (latitude, longitude, altitude) and operations on those points:</p>
+<p>addition of points, distance between points, vector between points...</p>
+<p>It also supports the conversion of csv files into GIS daat structures, and conversion of those data structures into a kml file.</p>
 
 <p align="center">
   <img width="569" height="305" src="https://raw.githubusercontent.com/elihaimov1992/OOP_EX2-EX4/master/map.png">
