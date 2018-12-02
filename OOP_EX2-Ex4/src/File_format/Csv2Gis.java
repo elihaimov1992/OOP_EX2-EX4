@@ -15,10 +15,12 @@ import GIS.Meta_data_obj;
 public class Csv2Gis {
 	
 	public static GIS_layer_obj csv2GisElement(String[] csvLineArr) {
+		String line = "";
+        String cvsSplitBy = ",";
 		Date time = new Date(csvLineArr[3]);
-		GIS_element element = new GIS_element_obj();
-		((Meta_data_obj)(element.getData())).set_meta_data(csvLineArr[0], csvLineArr[1], csvLineArr[2], (Date)csvLineArr[3], csvLineArr[4],
-				csvLineArr[5], csvLineArr[6], csvLineArr[7], csvLineArr[8], csvLineArr[9], csvLineArr[10]);
+		
+		GIS_layer elementLayer = new GIS_layer_obj();
+		
 
 	    ArrayList<String[]> csvArrayList = new ArrayList<String[]>();
 	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) 
@@ -28,6 +30,7 @@ public class Csv2Gis {
 	    	int i = 0;
 	        while ((line = br.readLine()) != null) 
 	        {
+	        	GIS_element_obj element = new GIS_element_obj();
 	            String[] userInfo = line.split(cvsSplitBy);
 	            String[] temp = {"","","","","",""};
 	            csvArrayList.add(temp);
@@ -37,6 +40,9 @@ public class Csv2Gis {
 	            csvArrayList.get(i)[3] = userInfo[3]; //DATE
 	            csvArrayList.get(i)[4] = userInfo[6]; //LAT
 	            csvArrayList.get(i)[5] = userInfo[7]; //LON
+	            
+	            element.setData(userInfo[1], userInfo[0], userInfo[2], i, i, cvsSplitBy, i, i, i);
+	            
 	            i++;
 //	            System.out.println("Name: " + userInfo[1] + ", CurrentLatitude: " + userInfo[6] + ", CurrentLongitude: " + userInfo[7]);
 	        }
