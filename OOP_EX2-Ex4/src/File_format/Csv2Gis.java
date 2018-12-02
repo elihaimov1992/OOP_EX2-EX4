@@ -13,7 +13,13 @@ import GIS.GIS_layer_obj;
 import GIS.Meta_data_obj;
 
 public class Csv2Gis {
+
 	
+	/**
+	 * this takes csv file and converts it into Gis layer.
+	 * @param csvFile filename
+	 * @return Gis layer object
+	 */
 	public static GIS_layer_obj csv2GisLayer(String csvFile) {
 		String line = "";
         String cvsSplitBy = ",";

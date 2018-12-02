@@ -3,7 +3,7 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="GIS.GIS_element_obj" project="OOP_EX2-EX4" 
     file="/OOP_EX2-EX4/OOP_EX2-Ex4/src/GIS/GIS_element_obj.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="151" x="-27" y="-161"/>    
+    <position height="160" width="379" x="-71" y="-70"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <interface id="2" language="java" name="GIS.Meta_data" project="OOP_EX2-EX4" 
     file="/OOP_EX2-EX4/OOP_EX2-Ex4/src/GIS/Meta_data.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="753" y="102"/>    
+    <position height="124" width="172" x="-185" y="834"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </interface>  
   <class id="3" language="java" name="GIS.GIS_layer_obj" project="OOP_EX2-EX4" 
     file="/OOP_EX2-EX4/OOP_EX2-Ex4/src/GIS/GIS_layer_obj.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="333" width="223" x="164" y="-161"/>    
+    <position height="340" width="267" x="348" y="-70"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <interface id="4" language="java" name="GIS.GIS_project" project="OOP_EX2-EX4" 
     file="/OOP_EX2-EX4/OOP_EX2-Ex4/src/GIS/GIS_project.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="533" y="237"/>    
+    <position height="88" width="185" x="719" y="310"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </interface>  
   <class id="5" language="java" name="GIS.GIS_project_obj" project="OOP_EX2-EX4" 
     file="/OOP_EX2-EX4/OOP_EX2-Ex4/src/GIS/GIS_project_obj.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="333" width="210" x="427" y="-161"/>    
+    <position height="340" width="249" x="655" y="-70"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </class>  
   <class id="6" language="java" name="GIS.Meta_data_obj" project="OOP_EX2-EX4" 
     file="/OOP_EX2-EX4/OOP_EX2-Ex4/src/GIS/Meta_data_obj.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="146" x="677" y="-161"/>    
+    <position height="484" width="420" x="-185" y="310"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -57,7 +57,7 @@
   </class>  
   <interface id="7" language="java" name="GIS.GIS_layer" project="OOP_EX2-EX4" 
     file="/OOP_EX2-EX4/OOP_EX2-Ex4/src/GIS/GIS_layer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="270" y="237"/>    
+    <position height="88" width="185" x="494" y="310"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -66,28 +66,52 @@
   </interface>  
   <interface id="8" language="java" name="GIS.GIS_element" project="OOP_EX2-EX4" 
     file="/OOP_EX2-EX4/OOP_EX2-Ex4/src/GIS/GIS_element.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="51" y="86"/>    
+    <position height="124" width="179" x="275" y="310"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <realization id="9">    
+  <association id="9">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="10" name="layers"/>      
+      <multiplicity id="11" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="12">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="8"/>  
   </realization>  
-  <realization id="10">    
+  <realization id="13">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="2"/>  
   </realization>  
-  <realization id="11">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="7"/>  
-  </realization>  
-  <realization id="12">    
+  <association id="14">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="15" name="elements"/>      
+      <multiplicity id="16" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="17">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="4"/>  
+  </realization>  
+  <association id="18">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="19" name="data"/>      
+      <multiplicity id="20" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="21">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="7"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

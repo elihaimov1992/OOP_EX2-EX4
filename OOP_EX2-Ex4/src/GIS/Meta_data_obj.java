@@ -20,6 +20,7 @@ public class Meta_data_obj implements Meta_data{
 	private Date date;
 	private double currentLatitude;
 	private double currentLongitude;
+	
 	public String getName() {
 		return name;
 	}
@@ -72,6 +73,7 @@ public class Meta_data_obj implements Meta_data{
 	
 	@Override
 	/**
+	 * This function returns the timezone the point is in
 	 * This function uses the library Llttz
 	 * https://github.com/agap/llttz
 	 */
@@ -81,6 +83,9 @@ public class Meta_data_obj implements Meta_data{
 //		return tz.getRawOffset();
 //	}
 	
+	/**
+	 * Returns the time in milliseconds the passed from 1.1.1970
+	 */
 	public long getUTC() {
 		return timestamp;
 	}
@@ -90,6 +95,10 @@ public class Meta_data_obj implements Meta_data{
 		return null;
 	}
 	
+	/**
+	 * Helper function that takes the date string from the csv file and turns it into a java date object
+	 * @param dateString
+	 */
 	private void setDate(String dateString) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {

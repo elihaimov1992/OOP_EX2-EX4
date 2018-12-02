@@ -8,6 +8,10 @@ public class GIS_layer_obj implements GIS_layer{
 
 	ArrayList<GIS_element> elements = new ArrayList<GIS_element>();
 	
+	/**
+	 * Adds an element to the elements arraylist if it does not already exist there
+	 * @return true if the arraylist was changed, false otherwise
+	 */
 	@Override
 	public boolean add(GIS_element arg0) {
 		boolean ans = false;
@@ -18,6 +22,10 @@ public class GIS_layer_obj implements GIS_layer{
 		return ans;
 	}
 
+	/**
+	 * Adds the given collection to our arraylist
+	 * @return true if the arraylist was changed, false otherwise
+	 */
 	@Override
 	public boolean addAll(Collection<? extends GIS_element> arg0) {
 		boolean ans = false;
@@ -35,11 +43,19 @@ public class GIS_layer_obj implements GIS_layer{
 		
 	}
 
+	/**
+	 * Checks if our arraylist contains an object
+	 * @return true if contains, else false
+	 */
 	@Override
 	public boolean contains(Object arg0) {
 		return elements.contains(arg0);
 	}
 
+	/**
+	 * Checks if our arraylist contains objects from a collection
+	 * @return true if contains at least one element from the collection, else false
+	 */
 	@Override
 	public boolean containsAll(Collection<?> arg0) {
 		return elements.containsAll(arg0);
@@ -75,6 +91,10 @@ public class GIS_layer_obj implements GIS_layer{
 		return elements.size();
 	}
 
+	/**
+	 * Turns our layer object into an array
+	 * @return returns the array
+	 */
 	@Override
 	public Object[] toArray() {
 		GIS_element[] arr = new GIS_element[elements.size()];
@@ -84,6 +104,10 @@ public class GIS_layer_obj implements GIS_layer{
 		return arr;
 	}
 
+	/**
+	 * Turns our layer object into an array
+	 * @return returns the array
+	 */
 	@Override
 	public <T> T[] toArray(T[] arg0) {
 		ArrayList<GIS_element> elements_copy = new ArrayList<GIS_element>(elements);

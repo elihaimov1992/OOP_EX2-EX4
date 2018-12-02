@@ -23,6 +23,9 @@ public class GIS_element_obj implements GIS_element{
 		data.set_meta_data(name, bssid, capabilities, dateString, currentLatitude, currentLongitude, altitudeMeters);
 	}
 
+	/**
+	 * This function moves a point by a given vector
+	 */
 	@Override
 	public void translate(Point3D vec) {
 		MyCoords mc = new MyCoords();

@@ -4,22 +4,16 @@ import Geom.Point3D;
 
 public class MyCoords implements coords_converter{
 
-//	public static void main(String[] args) {
-//		MyCoords mc = new MyCoords();
-//		Point3D p0 = new Point3D(32, 45,120);
-//		Point3D p1 = new Point3D(60, 102,900);
-//		Point3D meters = new Point3D(100000000,40030);
-//		Point3D p2 = new Point3D(0,360);
-//		System.out.println("Azimuth = " + mc.azimuth_elevation_dist(p0, p1)[0]);
-//		System.out.println("Elevation = " + mc.azimuth_elevation_dist(p0, p1)[1]);
-//		System.out.println("Distance = " + mc.azimuth_elevation_dist(p0, p1)[2]);
-//		System.out.println(mc.add(p0,meters));
-//		//System.out.println(mc.vector3D(p0,p2));
-//	}
-	
+
 	/**
 	 * We used these websites:
 	 * stackoverflow.com/questions/7477003/calculating-new-longitude-latitude-from-old-n-meters
+	 */
+	
+	
+	/**
+	 * This function add two points together
+	 * @return new point
 	 */
 	@Override
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {
@@ -50,7 +44,12 @@ public class MyCoords implements coords_converter{
 		}
 		return new Point3D(new_latitude,new_longitude);
 	}
+	
 
+	/**
+	 * This function calculate the distance between two points
+	 * @return distance
+	 */
 	@Override
 	public double distance3d(Point3D gps0, Point3D gps1) {
 		int radius = 6371000;
@@ -63,6 +62,10 @@ public class MyCoords implements coords_converter{
 		return radius * c;
 	}
 
+	/**
+	 * This function returns a point in meters that when we add it to gps0 we will arrive at gps1
+	 * @return the vector
+	 */
 	@Override
 	public Point3D vector3D(Point3D gps0, Point3D gps1) {
 		int radius = 6371000;
@@ -75,10 +78,12 @@ public class MyCoords implements coords_converter{
 
 	@Override
 	/**
-	 * We used these websites:
+	 * this function calculates the azimuth, elevation and distance between two points.
+	 * We used these web sites:
 	 * https://www.omnicalculator.com/other/azimuth#how-to-calculate-the-azimuth-from-latitude-and-longitude
 	 * https://www.photopills.com/articles/understanding-azimuth-and-elevation
 	 * http://tchester.org/sgm/analysis/peaks/how_to_get_view_params.html#elevation
+	 * @return an array containing the three answers
 	 */
 	public double[] azimuth_elevation_dist(Point3D gps0, Point3D gps1) {
 		int radius = 6371000;
@@ -98,6 +103,10 @@ public class MyCoords implements coords_converter{
 	}
 
 	@Override
+	/**
+	 * this function check if the point is valid.
+	 * @return true - if yes, else false.
+	 */
 	public boolean isValid_GPS_Point(Point3D p) {
 		boolean con1 = (-180<=p.x() && p.x()<=180);
 		boolean con2 = (-90<=p.y() && p.y()<=90);
