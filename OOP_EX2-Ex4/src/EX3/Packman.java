@@ -17,9 +17,14 @@ public class Packman {
 		this.radius = radius;
 	}
 	
+	public String toString() {
+		return "("+id+","+location+","+speed+","+radius+")";
+	}
 	
 	public static void main(String[] args) {
-
+		Point3D point = new Point3D(0,0);
+		Packman pac = new Packman(1,point,2,3);
+		System.out.println(pac);
 	}
 
 }

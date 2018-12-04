@@ -1,24 +1,20 @@
 package EX3;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-import GIS.GIS_element_obj;
-import GIS.GIS_layer;
-import GIS.GIS_layer_obj;
 import Geom.Point3D;
 
 public class Game {
 
 	ArrayList<Packman> packmans = new ArrayList<Packman>();
 	ArrayList<Fruit> fruits = new ArrayList<Fruit>();
-	
-	
-//	Game g = new Game();
-//	Packman p1 = new Packman(Point, speed);
-//	g.addPackman(p1);
 
 	public Game(String csvFile) {
 		ArrayList<String[]> lines = readCsv(csvFile);
@@ -30,11 +26,11 @@ public class Game {
 			double alt = Double.parseDouble(lines.get(i)[4]);
 			int speed_weight = Integer.parseInt(lines.get(i)[5]);
 			Point3D location = new Point3D(lat, lon, alt);
-			if (type == "P") {
+			if (type.equals("P")) {
 				int radius = Integer.parseInt(lines.get(i)[6]);
 				packmans.add(new Packman(id, location, speed_weight, radius));
 			}
-			else if (type == "F"){
+			else if (type.equals("F")){
 				fruits.add(new Fruit(id, location, speed_weight));
 			}
 		}
@@ -44,14 +40,18 @@ public class Game {
 		packmans.add(pkmn);
 	}
 	
-	public void addFruit(Packman frt) {
-		packmans.add(frt);
+	public void addFruit(Fruit frt) {
+		fruits.add(frt);
+	}
+	
+	public ArrayList<Packman> getPackmanArrayList() {
+		return packmans;
+	}
+	
+	public ArrayList<Fruit> getFruitArrayList() {
+		return fruits;
 	}
 
-
-	public static void main(String[] args) {
-
-	}
 
 	private ArrayList<String[]> readCsv(String csvFile) {
 		String line = "";
@@ -64,23 +64,8 @@ public class Game {
 	    	int i = 0;
 	        while ((line = br.readLine()) != null) 
 	        {
-	        	GIS_element_obj element = new GIS_element_obj();
-	            String[] userInfo = line.split(cvsSplitBy);
-	            String[] temp = {"","","","","","", ""};
-	            csvArrayList.add(temp);
-	            csvArrayList.get(i)[0] = userInfo[0]; //BSSID
-	            csvArrayList.get(i)[1] = userInfo[1]; //NAME
-	            csvArrayList.get(i)[2] = userInfo[2]; //CAPABILITIES
-	            csvArrayList.get(i)[3] = userInfo[3]; //DATE
-	            csvArrayList.get(i)[4] = userInfo[6]; //LAT
-	            csvArrayList.get(i)[5] = userInfo[7]; //LON
-	            csvArrayList.get(i)[6] = userInfo[8]; //ALT
-	            
-	            element.setData(userInfo[1], userInfo[0], userInfo[2], userInfo[3], Double.parseDouble(userInfo[6]), Double.parseDouble(userInfo[7]), Double.parseDouble(userInfo[8]));
-	            elementLayer.add(element);
-	            
-	            i++;
-//	            System.out.println("Name: " + userInfo[1] + ", CurrentLatitude: " + userInfo[6] + ", CurrentLongitude: " + userInfo[7]);
+	            String[] line_values = line.split(cvsSplitBy);
+	            csvArrayList.add(line_values);
 	        }
 
 	    } catch (IOException e) 
@@ -88,6 +73,49 @@ public class Game {
 	        e.printStackTrace();
 	    }
 	    
-	    return (GIS_layer_obj)elementLayer;
+	    return csvArrayList;
+	}
+	
+	public void writeCsv() {
+		ArrayList<String> content = new ArrayList<String>();
+		String folder_path = "data//";
+	    String csvstart = "Type,id,Lat,Lon,Alt,Speed/Weight,Radius,"+packmans.size()+","+fruits.size()+"\n";
+	    content.add(csvstart);
+        
+        try{
+        	int csv_name = 0;
+        	
+        	boolean check = new File(folder_path, "game" + Integer.toString(csv_name)+ ".csv").exists();
+        	while (check) {
+        		csv_name++;
+        		check = new File(folder_path, "game" + Integer.toString(csv_name)+ ".csv").exists();
+        	}
+        	
+	        FileWriter fw = new FileWriter(folder_path +"game" + csv_name + ".csv");
+	        BufferedWriter bw = new BufferedWriter(fw);
+	        Iterator<Packman> pac_it = packmans.iterator();
+	        while(pac_it.hasNext()) {
+	        	Packman pac = pac_it.next();
+	        	String line = "P,"+pac.toString().substring(1, pac.toString().length()-1)+"\n";
+		        content.add(line);
+	        }
+	        Iterator<Fruit> frt_it = fruits.iterator();
+	        while(frt_it.hasNext()) {
+	        	Fruit frt = frt_it.next();
+	        	String line = "F,"+frt.toString().substring(1, frt.toString().length()-1)+"\n";
+		        content.add(line);
+	        }
+	        String csv = content.toString().replaceAll(", ", "").replace("[", "").replace("]", "");
+	        bw.write(csv);
+	        bw.close();
+	    } 
+	    catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	public static void main(String[] args) {
+		Game game = new Game("data//game_1543684662657.csv");
+		game.writeCsv();
 	}
 }

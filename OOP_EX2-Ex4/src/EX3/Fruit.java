@@ -13,6 +13,10 @@ public class Fruit {
 		this.weight = weight;
 		this.id = id;
 	}
+	
+	public String toString() {
+		return "("+id+","+location+","+weight+")";
+	}
 
 	public static void main(String[] args) {
 		
