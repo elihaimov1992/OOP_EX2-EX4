@@ -1,10 +1,6 @@
 package EX3;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,9 +10,6 @@ import javax.imageio.ImageIO;
 
 import Coords.MyCoords;
 import Geom.Point3D;
-import ij.IJ;
-import ij.ImagePlus;
-import ij.process.ImageProcessor;
 
 public class Map {
 
@@ -24,44 +17,106 @@ public class Map {
 	// ariel start: 32.105716, 35.202373
 	// ariel end: 32.101911, 35.212528
 	
-	ImagePlus img;
+	BufferedImage mapImage = null;
 	Point3D start;
-	Point3D end;	
+	Point3D end;
+	int mapWidth, mapHeight;
 	
 	Map(String file_path, Point3D start, Point3D end) {
 		MyCoords mc = new MyCoords();
 		this.start = new Point3D(start);
 		this.end = new Point3D(end);
-		Point3D up_right = new Point3D(start.x(), end.y());
-		Point3D down_left = new Point3D(end.x(), start.y());
-		double width_meters = mc.distance3d(start, up_right);
-		double height_meters = mc.distance3d(start, down_left);
 		
+		try 
+		{
+			mapImage = ImageIO.read(new File("data//Ariel1.png"));
+		} 
+		catch (IOException e) 
+		{
+		    e.printStackTrace();
+		}
 		
-		ImagePlus imp = IJ.openImage("data//Ariel1.png");
-		ImageProcessor ip = imp.getProcessor();
-		ImageProcessor ip2 = ip.resize(imp.getWidth(), imp.getHeight());
-		imp.setProcessor(ip2);
-//		imp.show();
-		System.out.println("width_meters = "+width_meters);
-		System.out.println("height_meters = "+height_meters);
-		
+		mapWidth = mapImage.getWidth();
+		mapHeight = mapImage.getHeight();
 	}
 	
+	/**
+	 * Gets a point in latitude and longitude and returns a point in pixels on the image
+	 * We used stackoverflow.com/questions/38748832/convert-longitude-and-latitude-coordinates-to-image-of-a-map-pixels-x-and-y-coor
+	 * @param coordinate
+	 * @return
+	 */
+	public Point3D pointToPixels(Point3D latLonPoint) {
+		double mapLatDiff = start.x() - end.x();
+		double mapLongDiff = end.y() - start.y();
+		
+		double latDiff = start.x() - latLonPoint.x();
+	    double longDiff = latLonPoint.y() - start.y();
+	 
+	    int x = (int) (mapWidth*(longDiff/mapLongDiff));
+	    int y = (int) (mapHeight*(latDiff/mapLatDiff));
+
+	    return new Point3D(x, y);
+	}
 	
+	/**
+	 * Gets a point in pixels and returns a point in latitude and longitude
+	 * We used stackoverflow.com/questions/38748832/convert-longitude-and-latitude-coordinates-to-image-of-a-map-pixels-x-and-y-coor
+	 * @param coordinate
+	 * @return
+	 */
+	public Point3D pixelsToPoint(Point3D pixelsPoint) {
+		double mapLatDiff = start.x() - end.x();
+		double mapLongDiff = end.y() - start.y();
+
+	    double latDiff = pixelsPoint.y() * mapLatDiff/mapHeight;
+	    double longDiff = pixelsPoint.x() * mapLongDiff/mapWidth;
+	    
+	    double newLat = start.x() - latDiff;
+	    double newLong = start.y() + longDiff;
+	    
+	    return new Point3D(newLat, newLong);
+	}
 	
+	/**
+	 * Calculates distance in meters between two pixel points on the image
+	 * @param pix0
+	 * @param pix1
+	 * @return
+	 */
+	public double distanceBetweenPixels(Point3D pix0, Point3D pix1) {
+		Point3D p0 = pixelsToPoint(pix0);
+		Point3D p1 = pixelsToPoint(pix1);
+		MyCoords mc = new MyCoords();
+		return mc.distance3d(p0, p1);
+	}
 	
-	
+	/**
+	 * Calculates azimuth (angle) between two pixel points on the image
+	 * @param pix0
+	 * @param pix1
+	 * @return
+	 */
+	public double azimuthBetweenPixels(Point3D pix0, Point3D pix1) {
+		Point3D p0 = pixelsToPoint(pix0);
+		Point3D p1 = pixelsToPoint(pix1);
+		MyCoords mc = new MyCoords();
+		return mc.azimuth_elevation_dist(p0, p1)[0];
+	}
 
 	public static void main(String[] args) {
 		Point3D start = new Point3D(32.105716, 35.202373);
 		Point3D end = new Point3D(32.101911, 35.212528);
-		Point3D up_right = new Point3D(32.105716, 35.217587);
-		Point3D down_left = new Point3D(32.101911, 35.202373);
+		Point3D center = new Point3D(32.1038135, 35.2074505);
+
 		Map m = new Map("data//Ariel1.png", start, end);
+		Point3D centerInPixels = m.pointToPixels(center);
+		Point3D startInPixels = new Point3D(0,0);
+		Point3D endInPixels = new Point3D(m.mapWidth, m.mapHeight);
+		System.out.println(centerInPixels);
+		System.out.println(m.pixelsToPoint(centerInPixels));
+		System.out.println(m.distanceBetweenPixels(startInPixels, endInPixels));
 		
-		MyCoords mc = new MyCoords();
-		System.out.println(mc.distance3d(start, up_right));
 		
 		
 		
