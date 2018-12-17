@@ -9,12 +9,14 @@ public class Packman {
 	int speed;
 	int radius;
 	int id;
+	Path path;
 	
 	Packman(int id, Point3D location, int speed, int radius) {
 		this.id = id;
 		this.location = new Point3D(location);
 		this.speed = speed;
 		this.radius = radius;
+		path = new Path();
 	}
 	
 	public String toString() {

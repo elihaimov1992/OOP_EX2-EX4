@@ -7,11 +7,13 @@ public class Fruit {
 	Point3D location;
 	int weight;
 	int id;
+	boolean eaten;
 	
 	public Fruit(int id, Point3D location, int weight) {
 		this.location = new Point3D(location);
 		this.weight = weight;
 		this.id = id;
+		eaten = false;
 	}
 	
 	public String toString() {
