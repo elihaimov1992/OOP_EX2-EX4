@@ -22,7 +22,7 @@ public class Map {
 	Point3D end;
 	int mapWidth, mapHeight;
 	
-	Map(String file_path, Point3D start, Point3D end) {
+	public Map(String file_path, Point3D start, Point3D end) {
 		MyCoords mc = new MyCoords();
 		this.start = new Point3D(start);
 		this.end = new Point3D(end);

@@ -16,6 +16,9 @@ public class Game {
 	ArrayList<Packman> packmans = new ArrayList<Packman>();
 	ArrayList<Fruit> fruits = new ArrayList<Fruit>();
 
+	public Game() {
+	}
+	
 	public Game(String csvFile) {
 		ArrayList<String[]> lines = readCsv(csvFile);
 		for (int i = 0; i < lines.size(); i++) {
@@ -79,7 +82,9 @@ public class Game {
 	public void writeCsv() {
 		ArrayList<String> content = new ArrayList<String>();
 		String folder_path = "data//";
-	    String csvstart = "Type,id,Lat,Lon,Alt,Speed/Weight,Radius,"+packmans.size()+","+fruits.size()+"\n";
+	    String csvstart = "Type,id,Lat,Lon,Alt,Speed/Weight,Radius,";
+	    csvstart += packmans.size();
+	    csvstart += ","+fruits.size()+"\n";
 	    content.add(csvstart);
         
         try{
@@ -117,5 +122,6 @@ public class Game {
 	public static void main(String[] args) {
 		Game game = new Game("data//game_1543684662657.csv");
 		game.writeCsv();
+		System.out.println("done");
 	}
 }
