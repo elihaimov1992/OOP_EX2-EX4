@@ -64,7 +64,6 @@ public class ShortestPathAlgo {
 			curr_fruit.eaten = true;
 			times.set(pack_index, timeFromOnePackmanToFruits(chosen_pack));
 		}
-		
 	}
 	
 	public int indexOfMinArray(ArrayList<double[]> arrays, int fruit_index) {
