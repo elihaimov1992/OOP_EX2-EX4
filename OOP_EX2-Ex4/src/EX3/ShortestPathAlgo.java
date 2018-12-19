@@ -4,12 +4,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import Coords.MyCoords;
+import Geom.Point3D;
 
 public class ShortestPathAlgo {
 
 	Game game;
 	ArrayList<Path> paths = new ArrayList<Path>();
-	int availableFruits = game.getFruitArrayList().size();
+	int availableFruits;
+	
+	public ShortestPathAlgo(Game game) {
+		this.game = game;
+		availableFruits = game.getFruitArrayList().size();
+	}
 	
 //	public void findPaths() {
 //		MyCoords mc = new MyCoords();
@@ -53,7 +59,7 @@ public class ShortestPathAlgo {
 		// [ [inf(5), 5+43, 5+7], [inf, 20, 7], [inf, 12, 1] ]
 		// [ [inf, inf, 5+7], [inf, inf, 7], [inf, inf(12), 12+30] ]
 		// [ [inf, inf, inf], [inf, inf, inf(7)], [inf, inf, inf] ]
-		double[] times = new double[game.getPackmanArrayList().size()];
+		double[] times = new double[game.getFruitArrayList().size()];
 		Iterator<Fruit> fruit_it = game.getFruitArrayList().iterator();
 		int i = 0;
 		while (fruit_it.hasNext()) {
@@ -125,7 +131,18 @@ public class ShortestPathAlgo {
 	}
 	
 	public static void main(String[] args) {
+		Point3D start = new Point3D(32.105716, 35.202373);
+		Point3D end = new Point3D(32.101911, 35.212528);
+		Map map = new Map("data//Ariel1.png", start, end);
+		Game game = new Game("data//game0.csv");
+		ShortestPathAlgo spa = new ShortestPathAlgo(game);
+		spa.findPaths();
 		
+		Iterator<Packman> pack_it = game.getPackmanArrayList().iterator();
+		while (pack_it.hasNext()) {
+			Packman curr_pack = pack_it.next();
+			System.out.println(curr_pack.path);
+		}
 
 	}
 

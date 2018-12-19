@@ -23,7 +23,7 @@ public class MyFrame {
 	Game game;
 	JLabel label;
 	
-	public MyFrame(Map map, Game game, JLabel label) {
+	public MyFrame(Map map, Game game) {
 		this.map = map;
 		this.game = game;
 		this.label = label;
@@ -46,14 +46,10 @@ public class MyFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         for (int i = 0; i < 1000; i++) {
-        	drawGame(game, g);
-//            g.drawImage(packmanImage, i, i, 30, 30, null);
-//            SwingUtilities.updateComponentTreeUI(frame);
-//            try {
-//    			TimeUnit.MILLISECONDS.sleep(100);
-//    		} catch (InterruptedException e) {
-//    			e.printStackTrace();
-//    		}
+//        	drawGame(game, g);
+        	g.drawImage(map.mapImage, 0, 0, map.mapImage.getWidth(), map.mapImage.getHeight(), null);
+            g.drawImage(packmanImage, i*2, i*2, 50, 50, null);
+            frame.repaint();
 		}
         
         
@@ -96,13 +92,13 @@ public class MyFrame {
 	}
 	
 	public static void main(String[] args) throws IOException {
-//		Point3D start = new Point3D(32.105716, 35.202373);
-//		Point3D end = new Point3D(32.101911, 35.212528);
-//		Map map = new Map("data//Ariel1.png", start, end);
-//		Game game = new Game("data//game0.csv");
-//		
-////		MyFrame mf = new MyFrame(map, game);
-//		mf.show();
+		Point3D start = new Point3D(32.105716, 35.202373);
+		Point3D end = new Point3D(32.101911, 35.212528);
+		Map map = new Map("data//Ariel1.png", start, end);
+		Game game = new Game("data//game0.csv");
+		
+		MyFrame mf = new MyFrame(map, game);
+		mf.show();
 	}
 
 }

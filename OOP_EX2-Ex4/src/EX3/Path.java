@@ -42,6 +42,16 @@ public class Path {
 		return distance;
 	}
 	
+	public String toString() {
+		Iterator<Point3D> it = points.iterator();
+		String ans = "";
+		while (it.hasNext()) {
+			Point3D curr_point = it.next();
+			ans += curr_point + " -> ";
+		}
+		return ans;
+	}
+	
 	public static void main(String[] args) {
 		Path path = new Path();
 		Point3D p0 = new Point3D(32.105716, 35.202373);
