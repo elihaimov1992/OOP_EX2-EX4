@@ -39,6 +39,26 @@ public class Game {
 		}
 	}
 	
+	public Game(File file) {
+		ArrayList<String[]> lines = readCsv(file.getAbsolutePath());
+		for (int i = 0; i < lines.size(); i++) {
+			String type = lines.get(i)[0];
+			int id = Integer.parseInt(lines.get(i)[1]);
+			double lat = Double.parseDouble(lines.get(i)[2]);
+			double lon = Double.parseDouble(lines.get(i)[3]);
+			double alt = Double.parseDouble(lines.get(i)[4]);
+			int speed_weight = Integer.parseInt(lines.get(i)[5]);
+			Point3D location = new Point3D(lat, lon, alt);
+			if (type.equals("P")) {
+				int radius = Integer.parseInt(lines.get(i)[6]);
+				packmans.add(new Packman(id, location, speed_weight, radius));
+			}
+			else if (type.equals("F")){
+				fruits.add(new Fruit(id, location, speed_weight));
+			}
+		}
+	}
+	
 	public void addPackman(Packman pkmn) {
 		packmans.add(pkmn);
 	}

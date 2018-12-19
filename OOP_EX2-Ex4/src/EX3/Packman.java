@@ -19,6 +19,10 @@ public class Packman {
 		path = new Path();
 	}
 	
+	public void move(Point3D new_location) {
+		location = new_location;
+	}
+	
 	public String toString() {
 		return "("+id+","+location+","+speed+","+radius+")";
 	}

@@ -38,6 +38,12 @@ public class ShortestPathAlgo {
 //		
 //	}
 	
+	/**
+	 * creates an array of time in seconds from a given packman to each of the fruits
+	 * ex: [5, 10, 67]
+	 * @param packman
+	 * @return
+	 */
 	public double[] timeFromOnePackmanToFruits(Packman packman) {
 		// returns an array with times the packman will take to get to each fruit
 		// [5, 10, 67]
@@ -47,8 +53,23 @@ public class ShortestPathAlgo {
 		// [ [inf(5), 5+43, 5+7], [inf, 20, 7], [inf, 12, 1] ]
 		// [ [inf, inf, 5+7], [inf, inf, 7], [inf, inf(12), 12+30] ]
 		// [ [inf, inf, inf], [inf, inf, inf(7)], [inf, inf, inf] ]
+		double[] times = new double[game.getPackmanArrayList().size()];
+		Iterator<Fruit> fruit_it = game.getFruitArrayList().iterator();
+		int i = 0;
+		while (fruit_it.hasNext()) {
+			Fruit curr_fruit = fruit_it.next();
+			if (!curr_fruit.eaten) {
+				double secondsToFruit = secondsFromPackmanToFruit(packman, curr_fruit);
+				times[i] = secondsToFruit;
+			}
+			i++;
+		}
+		return times;
 	}
 	
+	/**
+	 * creates a path for each of the packmans in order to get an optimal final time
+	 */
 	public void findPaths() {
 		ArrayList<double[]> times = new ArrayList<>();
 		Iterator<Packman> pack_it = game.getPackmanArrayList().iterator();
@@ -61,11 +82,18 @@ public class ShortestPathAlgo {
 			Fruit curr_fruit = game.getFruitArrayList().get(i);
 			Packman chosen_pack = game.getPackmanArrayList().get(pack_index);
 			chosen_pack.path.add(curr_fruit.location);
+			chosen_pack.move(curr_fruit.location);
 			curr_fruit.eaten = true;
 			times.set(pack_index, timeFromOnePackmanToFruits(chosen_pack));
 		}
 	}
 	
+	/**
+	 * returns the index of the packman closest to a given fruit
+	 * @param arrays
+	 * @param fruit_index
+	 * @return
+	 */
 	public int indexOfMinArray(ArrayList<double[]> arrays, int fruit_index) {
 		double minTime = Double.MAX_VALUE;
 		int indexOfMinArray = 0;
@@ -80,6 +108,20 @@ public class ShortestPathAlgo {
 			i++;
 		}
 		return indexOfMinArray;
+	}
+	
+	/**
+	 * calculates the time in seconds it will take to a given packman to get to a given fruit
+	 * @param packman
+	 * @param fruit
+	 * @return
+	 */
+	public double secondsFromPackmanToFruit(Packman packman, Fruit fruit) {
+		MyCoords mc = new MyCoords();
+		double distance = mc.distance3d(packman.location, fruit.location) - packman.radius;
+		double speed = packman.speed;
+		double seconds = distance / speed;
+		return seconds;
 	}
 	
 	public static void main(String[] args) {
