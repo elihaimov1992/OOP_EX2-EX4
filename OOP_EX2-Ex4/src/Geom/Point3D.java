@@ -1,6 +1,8 @@
 package Geom;
 
 import java.io.Serializable;
+
+import Coords.MyCoords;
 public class Point3D implements Geom_element, Serializable 
 
 {
@@ -47,6 +49,7 @@ public class Point3D implements Geom_element, Serializable
 	public void add(double dx, double dy, double dz) {
 			_x+=dx;_y+=dy;_z+=dz;
 		}
+	
 	public void add(double x, double y){this.add(x,y,0);}
 
 	public String toString() 

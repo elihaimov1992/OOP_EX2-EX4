@@ -9,7 +9,8 @@ import Geom.Point3D;
 public class ShortestPathAlgo {
 
 	Game game;
-	ArrayList<Path> paths = new ArrayList<Path>();
+	ArrayList<Path> paths = new ArrayList();
+	ArrayList<Integer> totalSeconds = new ArrayList();
 	int availableFruits;
 	
 	public ShortestPathAlgo(Game game) {
@@ -87,11 +88,23 @@ public class ShortestPathAlgo {
 			int pack_index = indexOfMinArray(times, i);
 			Fruit curr_fruit = game.getFruitArrayList().get(i);
 			Packman chosen_pack = game.getPackmanArrayList().get(pack_index);
-			chosen_pack.path.add(curr_fruit.location);
+			chosen_pack.path.addPoint(curr_fruit.location);
 			chosen_pack.move(curr_fruit.location);
 			curr_fruit.eaten = true;
 			times.set(pack_index, timeFromOnePackmanToFruits(chosen_pack));
 		}
+		pack_it = game.getPackmanArrayList().iterator();
+		while (pack_it.hasNext()) {
+			Packman curr_pack = pack_it.next();
+			Point3D original_point = curr_pack.path.points.get(0);
+			curr_pack.move(original_point);
+		}
+		Iterator<Fruit> fruit_it = game.getFruitArrayList().iterator();
+		while (fruit_it.hasNext()) {
+			Fruit curr_fruit = fruit_it.next();
+			curr_fruit.eaten = false;
+		}
+		
 	}
 	
 	/**
@@ -127,7 +140,7 @@ public class ShortestPathAlgo {
 		double distance = mc.distance3d(packman.location, fruit.location) - packman.radius;
 		double speed = packman.speed;
 		double seconds = distance / speed;
-		return seconds;
+		return seconds + totalSeconds.get(packman.id);
 	}
 	
 	public static void main(String[] args) {

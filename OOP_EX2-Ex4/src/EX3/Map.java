@@ -42,16 +42,16 @@ public class Map {
 	}
 	
 	public Map() {
-		Point3D start = new Point3D(32.105716, 35.202373);
-		Point3D end = new Point3D(32.101911, 35.212528);
+		this.start = new Point3D(32.105716, 35.202373);
+		this.end = new Point3D(32.101911, 35.212528);
 		try {
 			mapImage = ImageIO.read(new File("data//Ariel1.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.start = start;
-		this.end = end;
+		mapWidth = mapImage.getWidth();
+		mapHeight = mapImage.getHeight();
 	}
 
 	/**

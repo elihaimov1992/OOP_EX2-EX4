@@ -10,25 +10,20 @@ import Geom.Point3D;
 public class Path {
 	ArrayList<Point3D> points;
 	ArrayList<Date> times;
-	private double time_to_finish;
 	
 	public Path() {
 		points = new ArrayList<Point3D>();
-		time_to_finish = 0;
+		times = new ArrayList<Date>();
 	}
 	
-	public void add(Point3D point) {
+	public void addPoint(Point3D point) {
 		points.add(point);
 	}
 	
-	public void setTime(double time) {
-		time_to_finish = time;
+	public void addTime(Date time) {
+		times.add(time);
 	}
-	
-	public double getTime() {
-		return time_to_finish;
-	}
-	
+		
 	public double distance() {
 		double distance = 0;
 		MyCoords mc = new MyCoords();
@@ -55,13 +50,13 @@ public class Path {
 	}
 	
 	public static void main(String[] args) {
-		Path path = new Path();
-		Point3D p0 = new Point3D(32.105716, 35.202373);
-		Point3D p1 = new Point3D(32.101911, 35.212528);
-		Point3D p2 = new Point3D(32.103727, 35.197333);
-		Point3D p3 = new Point3D(32.104481, 35.194573);
-		path.add(p0); path.add(p1); path.add(p2); path.add(p3);
-		System.out.println(path.distance());
+//		Path path = new Path();
+//		Point3D p0 = new Point3D(32.105716, 35.202373);
+//		Point3D p1 = new Point3D(32.101911, 35.212528);
+//		Point3D p2 = new Point3D(32.103727, 35.197333);
+//		Point3D p3 = new Point3D(32.104481, 35.194573);
+//		path.add(p0); path.add(p1); path.add(p2); path.add(p3);
+//		System.out.println(path.distance());
 	}
 	
 }

@@ -98,25 +98,17 @@ public class GameBoard extends JPanel
     
     private void drawPackman(Packman p, Graphics g) {
     	Point3D pointInPixels = map.pointToPixels(p.location);
-    	System.out.println(map.pointToPixels("));
     	g.drawImage(packmanImg, (int)pointInPixels.x(), (int)pointInPixels.y(), 40, 40, null);
     }
     
     private void drawFruit(Fruit f, Graphics g) {
     	Point3D pointInPixels = map.pointToPixels(f.location);
-    	g.drawImage(fruitImg, (int)pointInPixels.x(), (int)pointInPixels.y(), 20, 20, null);
+    	g.drawImage(fruitImg, (int)pointInPixels.x(), (int)pointInPixels.y(), 40, 40, null);
     }
 
     private void cycle() {
-
-//        x += 1;
-//        y += 1;
-//
-//        if (y > B_HEIGHT) {
-//
-//            y = INITIAL_Y;
-//            x = INITIAL_X;
-//        }
+    	Point3D end = new Point3D(32.101911, 35.212528);
+    	game.getPackmanArrayList().get(0).moveInDirection(end, DELAY);
     }
 
     @Override

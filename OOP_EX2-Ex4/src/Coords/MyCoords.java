@@ -44,7 +44,32 @@ public class MyCoords implements coords_converter{
 		}
 		return new Point3D(new_latitude,new_longitude);
 	}
-	
+	/**
+	 * 
+	 * @param meters
+	 * @param azimuth
+	 */
+	public Point3D addMetersAzimuth(Point3D gps, double meters, double azimuth) {
+		MyCoords mc = new MyCoords();
+//		double R = 6378.1;
+		double R = 6371;
+		azimuth = Math.toRadians(azimuth);
+		double km = meters/1000;
+			
+		double lat1 = Math.toRadians(gps.x());
+		double lon1 = Math.toRadians(gps.y());
+		
+		double lat2 = Math.asin( Math.sin(lat1)*Math.cos(km/R) +
+				Math.cos(lat1)*Math.sin(km/R)*Math.cos(azimuth));
+		
+		double lon2 = lon1 + Math.atan2(Math.sin(azimuth)*Math.sin(km/R)*Math.cos(lat1),
+				Math.cos(km/R)-Math.sin(lat1)*Math.sin(lat2));
+
+		lat2 = Math.toDegrees(lat2);
+		lon2 = Math.toDegrees(lon2);
+		
+		return new Point3D(lat2, lon2);
+	}
 
 	/**
 	 * This function calculate the distance between two points
