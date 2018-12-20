@@ -31,10 +31,10 @@ public class Game {
 			Point3D location = new Point3D(lat, lon, alt);
 			if (type.equals("P")) {
 				int radius = Integer.parseInt(lines.get(i)[6]);
-				packmans.add(new Packman(id, location, speed_weight, radius));
+				packmans.add(new Packman(id, location, speed_weight, radius, packmans.size()));
 			}
 			else if (type.equals("F")){
-				fruits.add(new Fruit(id, location, speed_weight));
+				fruits.add(new Fruit(id, location, speed_weight, fruits.size()));
 			}
 		}
 	}
@@ -51,10 +51,10 @@ public class Game {
 			Point3D location = new Point3D(lat, lon, alt);
 			if (type.equals("P")) {
 				int radius = Integer.parseInt(lines.get(i)[6]);
-				packmans.add(new Packman(id, location, speed_weight, radius));
+				packmans.add(new Packman(id, location, speed_weight, radius, packmans.size()));
 			}
 			else if (type.equals("F")){
-				fruits.add(new Fruit(id, location, speed_weight));
+				fruits.add(new Fruit(id, location, speed_weight, fruits.size()));
 			}
 		}
 	}
@@ -127,8 +127,10 @@ public class Game {
 	        Iterator<Fruit> frt_it = fruits.iterator();
 	        while(frt_it.hasNext()) {
 	        	Fruit frt = frt_it.next();
-	        	String line = "F,"+frt.toString().substring(1, frt.toString().length()-1)+"\n";
-		        content.add(line);
+	        	if (!frt.eaten) {
+	        		String line = "F,"+frt.toString().substring(1, frt.toString().length()-1)+"\n";
+			        content.add(line);
+	        	}
 	        }
 	        String csv = content.toString().replaceAll(", ", "").replace("[", "").replace("]", "");
 	        bw.write(csv);

@@ -8,15 +8,16 @@ import Coords.MyCoords;
 import Geom.Point3D;
 
 public class Path {
-	ArrayList<Point3D> points;
+	ArrayList<Fruit> points;
 	ArrayList<Date> times;
+	boolean saved2KML = false;
 	
 	public Path() {
-		points = new ArrayList<Point3D>();
+		points = new ArrayList<Fruit>();
 		times = new ArrayList<Date>();
 	}
 	
-	public void addPoint(Point3D point) {
+	public void addPoint(Fruit point) {
 		points.add(point);
 	}
 	
@@ -27,23 +28,23 @@ public class Path {
 	public double distance() {
 		double distance = 0;
 		MyCoords mc = new MyCoords();
-		Iterator<Point3D> it0 = points.iterator();
-		Iterator<Point3D> it1 = points.iterator();
+		Iterator<Fruit> it0 = points.iterator();
+		Iterator<Fruit> it1 = points.iterator();
 		it1.next();
 		while (it1.hasNext()) {
-			Point3D curr = it0.next();
-			Point3D next = it1.next();
-			distance += mc.distance3d(curr, next);
+			Fruit curr = it0.next();
+			Fruit next = it1.next();
+			distance += mc.distance3d(curr.location, next.location);
 		}
 //		distance += mc.distance3d(points.get(points.size()-1), points.get(points.size()-2));
 		return distance;
 	}
 	
 	public String toString() {
-		Iterator<Point3D> it = points.iterator();
+		Iterator<Fruit> it = points.iterator();
 		String ans = "";
 		while (it.hasNext()) {
-			Point3D curr_point = it.next();
+			Fruit curr_point = it.next();
 			ans += curr_point + " -> ";
 		}
 		return ans;

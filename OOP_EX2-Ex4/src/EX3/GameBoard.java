@@ -3,7 +3,9 @@ package EX3;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.util.Iterator;
 
@@ -14,133 +16,143 @@ import javax.swing.JPanel;
 import Geom.Point3D;
 
 public class GameBoard extends JPanel
-        implements Runnable {
+implements Runnable {
 
-    private final int B_WIDTH = 1433;
-    private final int B_HEIGHT = 642;
-    private final int INITIAL_X = -40;
-    private final int INITIAL_Y = -40;
-    private final int DELAY = 25;
+	private final int B_WIDTH = 1433;
+	private final int B_HEIGHT = 642;
+	private final int INITIAL_X = -40;
+	private final int INITIAL_Y = -40;
+	private final int DELAY = 0;
 
-    private Image mapImg;
-    private Image packmanImg;
-    private Image fruitImg;
-    private Thread animator;
-    
-    private Map map;
-    private Game game;
+	private Image mapImg;
+	private Image packmanImg;
+	private Image fruitImg;
+	private Thread animator;
 
-    public GameBoard() {
+	private Map map;
+	public Game game;
 
-        initBoard();
-    }
+	public GameBoard() {
 
-    private void loadImage() {
+		initBoard();
+	}
 
-    	ImageIcon mapIcon = new ImageIcon("C:/Users/Yosi/git/OOP_EX2-EX4/data/Ariel1.png");
-        ImageIcon packmanIcon = new ImageIcon("C:/Users/Yosi/git/OOP_EX2-EX4/data/packman.png");
-        ImageIcon fruitIcon = new ImageIcon("C:/Users/Yosi/git/OOP_EX2-EX4/data/fruit.png");
-        mapImg = mapIcon.getImage();
-        packmanImg = packmanIcon.getImage();
-        fruitImg = fruitIcon.getImage();
-    }
+	private void loadImage() {
 
-    private void initBoard() {
+		ImageIcon mapIcon = new ImageIcon("C:/Users/Yosi/git/OOP_EX2-EX4/data/Ariel1.png");
+		ImageIcon packmanIcon = new ImageIcon("C:/Users/Yosi/git/OOP_EX2-EX4/data/packman.png");
+		ImageIcon fruitIcon = new ImageIcon("C:/Users/Yosi/git/OOP_EX2-EX4/data/fruit.png");
+		mapImg = mapIcon.getImage();
+		packmanImg = packmanIcon.getImage();
+		fruitImg = fruitIcon.getImage();
+	}
 
-        setBackground(Color.BLACK);
-        setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
+	private void initBoard() {
 
-        loadImage();
-      
-        map = new Map();
-        game = new Game("C:\\Users\\Yosi\\git\\OOP_EX2-EX4\\data\\game0.csv");
-    }
+		setBackground(Color.BLACK);
+		setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
 
-    @Override
-    public void addNotify() {
-        super.addNotify();
+		loadImage();
 
-        animator = new Thread(this);
-        animator.start();
-    }
+		map = new Map();
+		game = new Game();
 
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(mapImg, 0, 0, null);
+		ShortestPathAlgo spa = new ShortestPathAlgo(game);
+		spa.findPaths();
+		
+	}
 
-        drawGame(g);
-    }
+	@Override
+	public void addNotify() {
+		super.addNotify();
 
-    private void drawGame(Graphics g) {
+		animator = new Thread(this);
+		animator.start();
+	}
 
-    	drawAllPackmans(g);
-    	drawAllFruits(g);
-        
-        Toolkit.getDefaultToolkit().sync();
-    }
-    
-    private void drawAllPackmans(Graphics g) {
-    	Iterator<Packman> pack_it = game.getPackmanArrayList().iterator();
-    	while(pack_it.hasNext()) {
-    		Packman curr_pack = pack_it.next();
-    		drawPackman(curr_pack, g);
-    	}
-    }
-    
-    private void drawAllFruits(Graphics g) {
-    	Iterator<Fruit> fruit_it = game.getFruitArrayList().iterator();
-    	while(fruit_it.hasNext()) {
-    		Fruit curr_fruit = fruit_it.next();
-    		drawFruit(curr_fruit, g);
-    	}
-    }
-    
-    private void drawPackman(Packman p, Graphics g) {
-    	Point3D pointInPixels = map.pointToPixels(p.location);
-    	g.drawImage(packmanImg, (int)pointInPixels.x(), (int)pointInPixels.y(), 40, 40, null);
-    }
-    
-    private void drawFruit(Fruit f, Graphics g) {
-    	Point3D pointInPixels = map.pointToPixels(f.location);
-    	g.drawImage(fruitImg, (int)pointInPixels.x(), (int)pointInPixels.y(), 40, 40, null);
-    }
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(mapImg, 0, 0, null);
 
-    private void cycle() {
-    	Point3D end = new Point3D(32.101911, 35.212528);
-    	game.getPackmanArrayList().get(0).moveInDirection(end, DELAY);
-    }
+		drawGame(g);
+	}
 
-    @Override
-    public void run() {
+	private void drawGame(Graphics g) {
 
-        long beforeTime, timeDiff, sleep;
+		drawAllPackmans(g);
+		drawAllFruits(g);
 
-        beforeTime = System.currentTimeMillis();
+		Toolkit.getDefaultToolkit().sync();
+	}
 
-        while (true) {
+	private void drawAllPackmans(Graphics g) {
+		Iterator<Packman> pack_it = game.getPackmanArrayList().iterator();
+		while(pack_it.hasNext()) {
+			Packman curr_pack = pack_it.next();
+			drawPackman(curr_pack, g);
+		}
+	}
 
-            cycle();
-            repaint();
+	private void drawAllFruits(Graphics g) {
+		Iterator<Fruit> fruit_it = game.getFruitArrayList().iterator();
+		while(fruit_it.hasNext()) {
+			Fruit curr_fruit = fruit_it.next();
+			drawFruit(curr_fruit, g);
+		}
+	}
 
-            timeDiff = System.currentTimeMillis() - beforeTime;
-            sleep = DELAY - timeDiff;
+	private void drawPackman(Packman p, Graphics g) {
+		Point3D pointInPixels = map.pointToPixels(p.location);
+		g.drawImage(packmanImg, (int)pointInPixels.x(), (int)pointInPixels.y(), 40, 40, null);
+	}
 
-            if (sleep < 0) {
-                sleep = 2;
-            }
+	private void drawFruit(Fruit f, Graphics g) {
+		Point3D pointInPixels = map.pointToPixels(f.location);
+		if (!f.eaten) {
+			g.drawImage(fruitImg, (int)pointInPixels.x(), (int)pointInPixels.y(), 40, 40, null);
+		}
+	}
 
-            try {
-                Thread.sleep(sleep);
-            } catch (InterruptedException e) {
-                
-                String msg = String.format("Thread interrupted: %s", e.getMessage());
-                
-                JOptionPane.showMessageDialog(this, msg, "Error", 
-                    JOptionPane.ERROR_MESSAGE);
-            }
+	private void cycle() {
+		Iterator<Packman> it = game.getPackmanArrayList().iterator();
+		while (it.hasNext()) {
+			Packman curr_pack = it.next();
+			Fruit destination = curr_pack.path.points.get(curr_pack.dest_id);
+			curr_pack.moveInDirection(destination, DELAY);
+		}
+	}
 
-            beforeTime = System.currentTimeMillis();
-        }
-    }
+	@Override
+	public void run() {
+
+		long beforeTime, timeDiff, sleep;
+
+		beforeTime = System.currentTimeMillis();
+
+		while (true) {
+
+			cycle();
+			repaint();
+
+			timeDiff = System.currentTimeMillis() - beforeTime;
+			sleep = DELAY - timeDiff;
+
+			if (sleep < 0) {
+				sleep = 2;
+			}
+
+			try {
+				Thread.sleep(sleep);
+			} catch (InterruptedException e) {
+
+				String msg = String.format("Thread interrupted: %s", e.getMessage());
+
+				JOptionPane.showMessageDialog(this, msg, "Error", 
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+			beforeTime = System.currentTimeMillis();
+		}
+	}
 }

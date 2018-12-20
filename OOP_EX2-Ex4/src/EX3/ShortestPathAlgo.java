@@ -10,40 +10,14 @@ public class ShortestPathAlgo {
 
 	Game game;
 	ArrayList<Path> paths = new ArrayList();
-	ArrayList<Integer> totalSeconds = new ArrayList();
+	double[] totalSeconds;
 	int availableFruits;
 	
 	public ShortestPathAlgo(Game game) {
 		this.game = game;
 		availableFruits = game.getFruitArrayList().size();
+		totalSeconds = new double[game.getPackmanArrayList().size()];
 	}
-	
-//	public void findPaths() {
-//		MyCoords mc = new MyCoords();
-//		Fruit nearest_fruit = null;
-//		double time_to_nearest = Double.MAX_VALUE;
-//		while (!game.getFruitArrayList().isEmpty()) {
-//			Iterator<Packman> pack_it = game.getPackmanArrayList().iterator();
-//			while (pack_it.hasNext()) {
-//				Packman curr_pack = pack_it.next();
-//				Iterator<Fruit> fruit_it = game.getFruitArrayList().iterator();
-//				while (fruit_it.hasNext()) {
-//					Fruit curr_fruit = fruit_it.next();
-//					double distance = mc.distance3d(curr_pack.location, curr_fruit.location);
-//					double time_needed = (distance - curr_pack.radius)/curr_pack.speed;
-//					if (time_needed < time_to_nearest) {
-//						nearest_fruit = curr_fruit;
-//						time_to_nearest = time_needed;
-//					}
-//				}
-//				curr_pack.path.add(nearest_fruit.location);
-//				curr_pack.path.setTime(curr_pack.path.getTime() + time_to_nearest);
-//				game.getFruitArrayList().remove(nearest_fruit);
-//			}
-//			
-//		}
-//		
-//	}
 	
 	/**
 	 * creates an array of time in seconds from a given packman to each of the fruits
@@ -88,7 +62,7 @@ public class ShortestPathAlgo {
 			int pack_index = indexOfMinArray(times, i);
 			Fruit curr_fruit = game.getFruitArrayList().get(i);
 			Packman chosen_pack = game.getPackmanArrayList().get(pack_index);
-			chosen_pack.path.addPoint(curr_fruit.location);
+			chosen_pack.path.addPoint(curr_fruit);
 			chosen_pack.move(curr_fruit.location);
 			curr_fruit.eaten = true;
 			times.set(pack_index, timeFromOnePackmanToFruits(chosen_pack));
@@ -96,8 +70,10 @@ public class ShortestPathAlgo {
 		pack_it = game.getPackmanArrayList().iterator();
 		while (pack_it.hasNext()) {
 			Packman curr_pack = pack_it.next();
-			Point3D original_point = curr_pack.path.points.get(0);
+			invertPath(curr_pack);
+			Point3D original_point = curr_pack.path.points.get(0).location;
 			curr_pack.move(original_point);
+			curr_pack.setCurrDestination(curr_pack.path.points.get(1).location);
 		}
 		Iterator<Fruit> fruit_it = game.getFruitArrayList().iterator();
 		while (fruit_it.hasNext()) {
@@ -106,6 +82,22 @@ public class ShortestPathAlgo {
 		}
 		
 	}
+	
+	private void invertPath(Packman pack) {
+		ArrayList<Fruit> inverted_path = new ArrayList();
+		for (int i = pack.path.points.size()-1; i >= 0; i--) {
+			inverted_path.add(pack.path.points.get(i));
+		}
+		pack.path.points = inverted_path;
+	}
+	
+//	private void eatIfStartOnFruit() {
+//		Iterator<Packman> pack_it = game.getPackmanArrayList().iterator();
+//		while (pack_it.hasNext()) {
+//			Packman curr_pack = pack_it.next();
+//			if (curr_pack.)
+//		}
+//	}
 	
 	/**
 	 * returns the index of the packman closest to a given fruit
@@ -140,7 +132,7 @@ public class ShortestPathAlgo {
 		double distance = mc.distance3d(packman.location, fruit.location) - packman.radius;
 		double speed = packman.speed;
 		double seconds = distance / speed;
-		return seconds + totalSeconds.get(packman.id);
+		return seconds + totalSeconds[packman.id];
 	}
 	
 	public static void main(String[] args) {
