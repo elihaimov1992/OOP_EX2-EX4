@@ -31,6 +31,7 @@ implements Runnable {
 
 	private Map map;
 	public Game game;
+	boolean running = true;
 
 	public GameBoard() {
 
@@ -115,12 +116,15 @@ implements Runnable {
 	}
 
 	private void cycle() {
-		Iterator<Packman> it = game.getPackmanArrayList().iterator();
-		while (it.hasNext()) {
-			Packman curr_pack = it.next();
-			Fruit destination = curr_pack.path.points.get(curr_pack.dest_id);
-			curr_pack.moveInDirection(destination, DELAY);
+		if (running) {
+			Iterator<Packman> it = game.getPackmanArrayList().iterator();
+			while (it.hasNext()) {
+				Packman curr_pack = it.next();
+				Fruit destination = curr_pack.path.points.get(curr_pack.dest_id);
+				curr_pack.moveInDirection(destination, DELAY);
+			}
 		}
+		
 	}
 
 	@Override

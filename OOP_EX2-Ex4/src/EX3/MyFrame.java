@@ -23,6 +23,7 @@ import com.sun.glass.events.KeyEvent;
 //https://docs.oracle.com/javase/tutorial/uiswing/components/menu.html
 public class MyFrame extends JFrame{
 
+	
 	public MyFrame() {
 
 		initUI();
@@ -85,6 +86,7 @@ public class MyFrame extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				ShortestPathAlgo spa = new ShortestPathAlgo(board.game);
 				spa.findPaths();
+				board.running = true;
 			}         
 		});  
 		
@@ -92,7 +94,7 @@ public class MyFrame extends JFrame{
 	        
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				board.running = false;
 			}         
 		}); 
 		
