@@ -20,6 +20,7 @@ public class Map {
 	BufferedImage mapImage = null;
 	Point3D start;
 	Point3D end;
+	Game game;
 	int mapWidth, mapHeight;
 	
 	public Map(String file_path, Point3D start, Point3D end) {
@@ -40,6 +41,19 @@ public class Map {
 		mapHeight = mapImage.getHeight();
 	}
 	
+	public Map() {
+		Point3D start = new Point3D(32.105716, 35.202373);
+		Point3D end = new Point3D(32.101911, 35.212528);
+		try {
+			mapImage = ImageIO.read(new File("data//Ariel1.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.start = start;
+		this.end = end;
+	}
+
 	/**
 	 * Gets a point in latitude and longitude and returns a point in pixels on the image
 	 * We used stackoverflow.com/questions/38748832/convert-longitude-and-latitude-coordinates-to-image-of-a-map-pixels-x-and-y-coor

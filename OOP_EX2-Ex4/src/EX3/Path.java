@@ -1,6 +1,7 @@
 package EX3;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import Coords.MyCoords;
@@ -8,6 +9,7 @@ import Geom.Point3D;
 
 public class Path {
 	ArrayList<Point3D> points;
+	ArrayList<Date> times;
 	private double time_to_finish;
 	
 	public Path() {
