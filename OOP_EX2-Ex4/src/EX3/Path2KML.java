@@ -10,6 +10,9 @@ import java.util.Iterator;
 
 import com.sun.jmx.snmp.Timestamp;
 
+/**
+ * This class represents an object that creates a kml file from a path object
+ */
 public class Path2KML {
 
 	Path path;
@@ -18,6 +21,9 @@ public class Path2KML {
 		this.path = path;
 	}
 	
+	/**
+	 * Creates a kml file from the path object
+	 */
 	public void toKml() {
 		ArrayList<String> content = new ArrayList<String>();
 	    String kmlstart = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +

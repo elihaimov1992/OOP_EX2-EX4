@@ -11,6 +11,9 @@ import java.util.Iterator;
 
 import Geom.Point3D;
 
+/**
+ * This class represents a full game containing packmans and fruits.
+ */
 public class Game {
 
 	ArrayList<Packman> packmans = new ArrayList<Packman>();
@@ -19,6 +22,10 @@ public class Game {
 	public Game() {
 	}
 	
+	/**
+	 * Constructor that creates a game object from a csv file
+	 * @param csvFile
+	 */
 	public Game(String csvFile) {
 		ArrayList<String[]> lines = readCsv(csvFile);
 		for (int i = 0; i < lines.size(); i++) {
@@ -39,6 +46,10 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Constructor that creates a game object from a csv file
+	 * @param csvFile
+	 */
 	public Game(File file) {
 		ArrayList<String[]> lines = readCsv(file.getAbsolutePath());
 		for (int i = 0; i < lines.size(); i++) {
@@ -76,6 +87,11 @@ public class Game {
 	}
 
 
+	/**
+	 * Parser a csv file into an arraylist of strings
+	 * @param csvFile
+	 * @return
+	 */
 	private ArrayList<String[]> readCsv(String csvFile) {
 		String line = "";
         String cvsSplitBy = ",";
@@ -99,6 +115,9 @@ public class Game {
 	    return csvArrayList;
 	}
 	
+	/**
+	 * Writes a csv file from a game object
+	 */
 	public void writeCsv() {
 		ArrayList<String> content = new ArrayList<String>();
 		String folder_path = "data//";

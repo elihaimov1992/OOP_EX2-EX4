@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"><Document><Style id="red"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/red-dot.png</href></Icon></IconStyle></Style><Style id="yellow"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/yellow-dot.png</href></Icon></IconStyle></Style><Style id="green"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/green-dot.png</href></Icon></IconStyle></Style><Folder><name>Packman Path</name>
+<Placemark>
+<name><![CDATA[Fruit-1]]></name>
+<description><![CDATA[Timestamp: <b>{SysUpTime = 178883 days 19:6:7} {Timestamp = Sun Dec 23 11:06:36 IST 2018}</b><br/>Date: <b>Sun Dec 23 11:06:36 IST 2018</b>]]></description><styleUrl>#red</styleUrl>
+<Point>
+<coordinates>35.20391021,32.10251966</coordinates></Point>
+</Placemark>
+</Folder>
+</Document></kml>

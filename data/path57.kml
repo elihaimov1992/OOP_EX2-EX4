@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"><Document><Style id="red"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/red-dot.png</href></Icon></IconStyle></Style><Style id="yellow"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/yellow-dot.png</href></Icon></IconStyle></Style><Style id="green"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/green-dot.png</href></Icon></IconStyle></Style><Folder><name>Packman Path</name>
+<Placemark>
+<name><![CDATA[Fruit8]]></name>
+<description><![CDATA[Timestamp: <b>{SysUpTime = 178884 days 15:28:9} {Timestamp = Sun Dec 23 13:08:51 IST 2018}</b><br/>Date: <b>Sun Dec 23 13:08:48 IST 2018</b>]]></description><styleUrl>#red</styleUrl>
+<Point>
+<coordinates>35.20909731,32.10489179</coordinates></Point>
+</Placemark>
+<Placemark>
+<name><![CDATA[Fruit7]]></name>
+<description><![CDATA[Timestamp: <b>{SysUpTime = 178884 days 15:28:9} {Timestamp = Sun Dec 23 13:08:51 IST 2018}</b><br/>Date: <b>Sun Dec 23 13:08:48 IST 2018</b>]]></description><styleUrl>#red</styleUrl>
+<Point>
+<coordinates>35.20860952,32.10463765</coordinates></Point>
+</Placemark>
+<Placemark>
+<name><![CDATA[Fruit6]]></name>
+<description><![CDATA[Timestamp: <b>{SysUpTime = 178884 days 15:28:9} {Timestamp = Sun Dec 23 13:08:51 IST 2018}</b><br/>Date: <b>Sun Dec 23 13:08:48 IST 2018</b>]]></description><styleUrl>#red</styleUrl>
+<Point>
+<coordinates>35.20835323,32.10448724</coordinates></Point>
+</Placemark>
+<Placemark>
+<name><![CDATA[Fruit5]]></name>
+<description><![CDATA[Timestamp: <b>{SysUpTime = 178884 days 15:28:21} {Timestamp = Sun Dec 23 13:08:51 IST 2018}</b><br/>Date: <b>Sun Dec 23 13:08:50 IST 2018</b>]]></description><styleUrl>#red</styleUrl>
+<Point>
+<coordinates>35.20790679,32.10418643</coordinates></Point>
+</Placemark>
+<Placemark>
+<name><![CDATA[Fruit-1]]></name>
+<description><![CDATA[Timestamp: <b>{SysUpTime = 178884 days 15:28:24} {Timestamp = Sun Dec 23 13:08:51 IST 2018}</b><br/>Date: <b>Sun Dec 23 13:08:50 IST 2018</b>]]></description><styleUrl>#red</styleUrl>
+<Point>
+<coordinates>35.20758436,32.10404121</coordinates></Point>
+</Placemark>
+</Folder>
+</Document></kml>

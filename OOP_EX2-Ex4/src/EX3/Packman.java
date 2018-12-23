@@ -7,7 +7,10 @@ import java.util.Date;
 import Coords.MyCoords;
 import Geom.Point3D;
 
-public class Packman {
+/**
+ * This class represents a packman object.
+ */
+public class Packman implements Runnable{
 
 	Point3D location;
 	Point3D curr_destination;
@@ -18,6 +21,8 @@ public class Packman {
 	int id;
 	int num;
 	Path path;
+	boolean running = true;
+	int closestFruitIndex;
 	
 	Packman(int num, Point3D location, int speed, int radius, int id) {
 		this.id = id;
@@ -32,7 +37,11 @@ public class Packman {
 	}
 	
 	
-	
+	/**
+	 * Moves the packman slightly in the direction of a given fruit object.
+	 * @param dest_fruit
+	 * @param delay
+	 */
 	public void moveInDirection(Fruit dest_fruit, double delay) {
 		if (location == path.points.get(0).location) {
 			path.times.add(new Date());
@@ -52,7 +61,7 @@ public class Packman {
 					path.times.add(currdate);
 					DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 					Path2KML p2k = new Path2KML(path);
-					p2k.toKml();
+//					p2k.toKml();
 					path.saved2KML = true;
 				}
 				
@@ -63,7 +72,7 @@ public class Packman {
 			MyCoords mc = new MyCoords();
 			Map map = new Map();
 			double azimuth = mc.azimuth_elevation_dist(this.location, dest_fruit.location)[0];
-			double metersToMove = this.speed*10;
+			double metersToMove = this.speed*20;
 			Point3D newPoint = mc.addMetersAzimuth(this.location, metersToMove, azimuth);
 			this.move(newPoint);
 //			System.out.println(metersToMove);
@@ -113,6 +122,16 @@ public class Packman {
 		
 		System.out.println(start);
 		System.out.println(new Point3D(lat2, lon2));
+	}
+
+
+
+	@Override
+	public void run() {
+		while(running) {
+			Fruit destination = path.points.get(dest_id);
+			moveInDirection(destination, 0);
+		}
 	}
 
 }

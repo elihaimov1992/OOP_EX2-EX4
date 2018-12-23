@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"><Document><Style id="red"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/red-dot.png</href></Icon></IconStyle></Style><Style id="yellow"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/yellow-dot.png</href></Icon></IconStyle></Style><Style id="green"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/green-dot.png</href></Icon></IconStyle></Style><Folder><name>Packman Path</name>
+<Placemark>
+<name><![CDATA[Fruit36]]></name>
+<description><![CDATA[Timestamp: <b>{SysUpTime = 178884 days 22:11:8} {Timestamp = Sun Dec 23 13:49:35 IST 2018}</b><br/>Date: <b>Sun Dec 23 13:49:06 IST 2018</b>]]></description><styleUrl>#red</styleUrl>
+<Point>
+<coordinates>35.20961082,32.10273869</coordinates></Point>
+</Placemark>
+<Placemark>
+<name><![CDATA[Fruit35]]></name>
+<description><![CDATA[Timestamp: <b>{SysUpTime = 178884 days 22:11:8} {Timestamp = Sun Dec 23 13:49:35 IST 2018}</b><br/>Date: <b>Sun Dec 23 13:49:06 IST 2018</b>]]></description><styleUrl>#red</styleUrl>
+<Point>
+<coordinates>35.21005919,32.10290558</coordinates></Point>
+</Placemark>
+<Placemark>
+<name><![CDATA[Fruit34]]></name>
+<description><![CDATA[Timestamp: <b>{SysUpTime = 178884 days 22:11:19} {Timestamp = Sun Dec 23 13:49:35 IST 2018}</b><br/>Date: <b>Sun Dec 23 13:49:07 IST 2018</b>]]></description><styleUrl>#red</styleUrl>
+<Point>
+<coordinates>35.20965886,32.10349488</coordinates></Point>
+</Placemark>
+<Placemark>
+<name><![CDATA[Fruit33]]></name>
+<description><![CDATA[Timestamp: <b>{SysUpTime = 178884 days 22:11:58} {Timestamp = Sun Dec 23 13:49:35 IST 2018}</b><br/>Date: <b>Sun Dec 23 13:49:11 IST 2018</b>]]></description><styleUrl>#red</styleUrl>
+<Point>
+<coordinates>35.21023533,32.10366698</coordinates></Point>
+</Placemark>
+<Placemark>
+<name><![CDATA[Fruit32]]></name>
+<description><![CDATA[Timestamp: <b>{SysUpTime = 178884 days 22:12:50} {Timestamp = Sun Dec 23 13:49:35 IST 2018}</b><br/>Date: <b>Sun Dec 23 13:49:17 IST 2018</b>]]></description><styleUrl>#red</styleUrl>
+<Point>
+<coordinates>35.2089623,32.10396424</coordinates></Point>
+</Placemark>
+<Placemark>
+<name><![CDATA[Fruit31]]></name>
+<description><![CDATA[Timestamp: <b>{SysUpTime = 178884 days 22:13:41} {Timestamp = Sun Dec 23 13:49:35 IST 2018}</b><br/>Date: <b>Sun Dec 23 13:49:22 IST 2018</b>]]></description><styleUrl>#red</styleUrl>
+<Point>
+<coordinates>35.20889024,32.10463698</coordinates></Point>
+</Placemark>
+<Placemark>
+<name><![CDATA[Fruit-1]]></name>
+<description><![CDATA[Timestamp: <b>{SysUpTime = 178884 days 22:14:48} {Timestamp = Sun Dec 23 13:49:35 IST 2018}</b><br/>Date: <b>Sun Dec 23 13:49:28 IST 2018</b>]]></description><styleUrl>#red</styleUrl>
+<Point>
+<coordinates>35.20935462,32.10487688</coordinates></Point>
+</Placemark>
+</Folder>
+</Document></kml>

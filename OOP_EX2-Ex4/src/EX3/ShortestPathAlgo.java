@@ -1,11 +1,17 @@
 package EX3;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import Coords.MyCoords;
 import Geom.Point3D;
 
+/**
+ * This class represents an objects that calculates a good path for the packmans
+ */
 public class ShortestPathAlgo {
 
 	Game game;
@@ -71,9 +77,9 @@ public class ShortestPathAlgo {
 		while (pack_it.hasNext()) {
 			Packman curr_pack = pack_it.next();
 			invertPath(curr_pack);
-			Point3D original_point = curr_pack.path.points.get(0).location;
+			Point3D original_point = curr_pack.path.points.get(curr_pack.path.points.size()-1).location;
 			curr_pack.move(original_point);
-			curr_pack.setCurrDestination(curr_pack.path.points.get(1).location);
+			curr_pack.setCurrDestination(curr_pack.path.points.get(0).location);
 		}
 		Iterator<Fruit> fruit_it = game.getFruitArrayList().iterator();
 		while (fruit_it.hasNext()) {
@@ -83,6 +89,67 @@ public class ShortestPathAlgo {
 		
 	}
 	
+//	public void findPaths2() {
+//		int eatenFruits = 0;
+//		Iterator<Packman> pack_it = game.getPackmanArrayList().iterator();
+//		while(eatenFruits < game.getFruitArrayList().size()) {
+//			pack_it = game.getPackmanArrayList().iterator();
+//			while(pack_it.hasNext()) {
+//				boolean chosen = false;
+//				Packman curr_pack = pack_it.next();
+//				double[] times = timeFromOnePackmanToFruits(curr_pack);
+//				while(!chosen) {
+//					int closestIndex = minIndex(times);
+//					Fruit chosen_fruit = game.getFruitArrayList().get(closestIndex);
+//					if (!chosen_fruit.eaten) {
+//						chosen = true;
+//						curr_pack.path.addPoint(chosen_fruit);
+//						chosen_fruit.eaten = true;
+//						eatenFruits++;
+//						totalSeconds[curr_pack.id] += times[closestIndex];
+//						times[closestIndex] = Double.MAX_VALUE;
+//					}
+//				}
+//			}
+//		}
+//		pack_it = game.getPackmanArrayList().iterator();
+//		while (pack_it.hasNext()) {
+//			Packman curr_pack = pack_it.next();
+//			invertPath(curr_pack);
+//			Point3D original_point = curr_pack.path.points.get(0).location;
+//			curr_pack.move(original_point);
+//			curr_pack.setCurrDestination(curr_pack.path.points.get(1).location);
+//		}
+//		Iterator<Fruit> fruit_it = game.getFruitArrayList().iterator();
+//		while (fruit_it.hasNext()) {
+//			Fruit curr_fruit = fruit_it.next();
+//			curr_fruit.eaten = false;
+//		}
+//		
+//		
+//	}
+
+	/**
+	 * Minimum value from an array
+	 * @param times
+	 * @return
+	 */
+	public int minIndex(double[] times) {
+		double min = times[0];
+		int index = 0;
+		for (int i = 1; i < times.length; i++) {
+			if (times[i] < min) {
+				min = times[i];
+				index = i;
+			}
+		}
+		return index;
+	}
+	
+	/**
+	 * Inverts a path object of a packman
+	 * @param pack
+	 */
 	private void invertPath(Packman pack) {
 		ArrayList<Fruit> inverted_path = new ArrayList();
 		for (int i = pack.path.points.size()-1; i >= 0; i--) {
@@ -129,25 +196,37 @@ public class ShortestPathAlgo {
 	 */
 	public double secondsFromPackmanToFruit(Packman packman, Fruit fruit) {
 		MyCoords mc = new MyCoords();
+//		double distance = packman.location.distance3D(fruit.location) - packman.radius;
 		double distance = mc.distance3d(packman.location, fruit.location) - packman.radius;
 		double speed = packman.speed;
+
 		double seconds = distance / speed;
 		return seconds + totalSeconds[packman.id];
 	}
 	
 	public static void main(String[] args) {
-		Point3D start = new Point3D(32.105716, 35.202373);
-		Point3D end = new Point3D(32.101911, 35.212528);
-		Map map = new Map("data//Ariel1.png", start, end);
-		Game game = new Game("data//game0.csv");
-		ShortestPathAlgo spa = new ShortestPathAlgo(game);
-		spa.findPaths();
+//		Point3D start = new Point3D(32.105716, 35.202373);
+//		Point3D end = new Point3D(32.101911, 35.212528);
+//		Map map = new Map("data//Ariel1.png", start, end);
+//		Game game = new Game("data//game0.csv");
+//		ShortestPathAlgo spa = new ShortestPathAlgo(game);
+//		spa.findPaths();
+//		
+//		Iterator<Packman> pack_it = game.getPackmanArrayList().iterator();
+//		while (pack_it.hasNext()) {
+//			Packman curr_pack = pack_it.next();
+//			System.out.println(curr_pack.path);
+//		}
 		
-		Iterator<Packman> pack_it = game.getPackmanArrayList().iterator();
-		while (pack_it.hasNext()) {
-			Packman curr_pack = pack_it.next();
-			System.out.println(curr_pack.path);
+		ArrayList<Integer> nums = new ArrayList<>();
+		nums.add(0); nums.add(1); nums.add(2);
+		System.out.println(nums);
+		
+		ArrayList<Integer> inverted_path = new ArrayList();
+		for (int i = nums.size()-1; i >= 0; i--) {
+			inverted_path.add(nums.get(i));
 		}
+		System.out.println(inverted_path);
 
 	}
 

@@ -11,6 +11,10 @@ import javax.imageio.ImageIO;
 import Coords.MyCoords;
 import Geom.Point3D;
 
+
+/**
+ * This class represents a map that is made up of an image, top left and bottom right gps coords of the map.
+ */
 public class Map {
 
 	// we used the ImageJ library to resize the image
@@ -130,15 +134,6 @@ public class Map {
 		System.out.println(centerInPixels);
 		System.out.println(m.pixelsToPoint(centerInPixels));
 		System.out.println(m.distanceBetweenPixels(startInPixels, endInPixels));
-		
-		
-		
-		
-
-	
-				
-				
-		
 				
 	}
 	

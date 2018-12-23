@@ -7,6 +7,9 @@ import java.util.Iterator;
 import Coords.MyCoords;
 import Geom.Point3D;
 
+/**
+ * Represents a path object which is a collection of points 
+ */
 public class Path {
 	ArrayList<Fruit> points;
 	ArrayList<Date> times;
@@ -25,6 +28,10 @@ public class Path {
 		times.add(time);
 	}
 		
+	/**
+	 * Calculates the total length in meters of the path
+	 * @return
+	 */
 	public double distance() {
 		double distance = 0;
 		MyCoords mc = new MyCoords();

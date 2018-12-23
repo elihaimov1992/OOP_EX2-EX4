@@ -7,6 +7,11 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.ImageIcon;
@@ -15,8 +20,11 @@ import javax.swing.JPanel;
 
 import Geom.Point3D;
 
+/**
+ * This class represents a JPanel that displays the map and all of the objects: packmans and fruits, and animates them.
+ */
 public class GameBoard extends JPanel
-implements Runnable {
+implements Runnable, MouseListener {
 
 	private final int B_WIDTH = 1433;
 	private final int B_HEIGHT = 642;
@@ -31,13 +39,22 @@ implements Runnable {
 
 	private Map map;
 	public Game game;
+	public Simulate simulate;
 	boolean running = true;
+	ArrayList<Thread> threads = new ArrayList<Thread>();
+	
+	Thread t1;
+	
+	int packOrFruit = 0;
 
 	public GameBoard() {
 
 		initBoard();
 	}
 
+	/**
+	 * Loads the necessary images into variables
+	 */
 	private void loadImage() {
 
 		ImageIcon mapIcon = new ImageIcon("C:/Users/Yosi/git/OOP_EX2-EX4/data/Ariel1.png");
@@ -48,6 +65,9 @@ implements Runnable {
 		fruitImg = fruitIcon.getImage();
 	}
 
+	/**
+	 * Initilize the JPanel: windows size, background...
+	 */
 	private void initBoard() {
 
 		setBackground(Color.BLACK);
@@ -57,10 +77,18 @@ implements Runnable {
 
 		map = new Map();
 		game = new Game();
-
-		ShortestPathAlgo spa = new ShortestPathAlgo(game);
-		spa.findPaths();
 		
+		
+		super.addMouseListener(this);
+
+	}
+	
+	/**
+	 * Runs the thread that does the calculations for moving the packmans
+	 */
+	public void runSimulate() {
+		t1 = new Thread(simulate);
+		t1.start();
 	}
 
 	@Override
@@ -79,6 +107,9 @@ implements Runnable {
 		drawGame(g);
 	}
 
+	/**
+	 * Draws the packmans and fruits
+	 */
 	private void drawGame(Graphics g) {
 
 		drawAllPackmans(g);
@@ -115,48 +146,57 @@ implements Runnable {
 		}
 	}
 
-	private void cycle() {
-		if (running) {
-			Iterator<Packman> it = game.getPackmanArrayList().iterator();
-			while (it.hasNext()) {
-				Packman curr_pack = it.next();
-				Fruit destination = curr_pack.path.points.get(curr_pack.dest_id);
-				curr_pack.moveInDirection(destination, DELAY);
-			}
+	/**
+	 * Create a thread for each packman and start it
+	 */
+	public void runPackmans() {
+		Iterator<Packman> pack_it = game.getPackmanArrayList().iterator();
+		while(pack_it.hasNext()) {
+			threads.add(new Thread(pack_it.next()));
+		}
+		Iterator<Thread> trd_it = threads.iterator();
+		while(trd_it.hasNext()) {
+			trd_it.next().start();
+		}
+	}
+
+	@Override
+	public void run() {
+		while (true) {
+			repaint();	
+		}
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+	}
+	@Override
+	public void mouseEntered(MouseEvent arg0) {	
+	}
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+	}
+
+	/**
+	 * Adds a packman/fruit on the screen where the mouse is clicked
+	 */
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		Point3D mousePixel = new Point3D(arg0.getX(), arg0.getY());
+		if (packOrFruit == 0) {
+			Packman new_pack = new Packman(0, map.pixelsToPoint(mousePixel), 1, 1, 1);
+			game.addPackman(new_pack);
+			threads.add(new Thread(new_pack));
+			threads.get(threads.size()-1).start();
+		}
+		else{
+			game.addFruit(new Fruit(0, map.pixelsToPoint(mousePixel), 1, 1));
 		}
 		
 	}
 
 	@Override
-	public void run() {
-
-		long beforeTime, timeDiff, sleep;
-
-		beforeTime = System.currentTimeMillis();
-
-		while (true) {
-
-			cycle();
-			repaint();
-
-			timeDiff = System.currentTimeMillis() - beforeTime;
-			sleep = DELAY - timeDiff;
-
-			if (sleep < 0) {
-				sleep = 2;
-			}
-
-			try {
-				Thread.sleep(sleep);
-			} catch (InterruptedException e) {
-
-				String msg = String.format("Thread interrupted: %s", e.getMessage());
-
-				JOptionPane.showMessageDialog(this, msg, "Error", 
-						JOptionPane.ERROR_MESSAGE);
-			}
-
-			beforeTime = System.currentTimeMillis();
-		}
+	public void mouseReleased(MouseEvent arg0) {
 	}
+	
 }
