@@ -14,5 +14,5 @@ addition of points, distance between points, vector between points...<br />
 It also supports the conversion of csv files into GIS daat structures, and conversion of those data structures into a kml file.<br />
 
 <p align="center">
-  <img width="569" height="305" src="https://raw.githubusercontent.com/elihaimov1992/OOP_EX2-EX4/master/map.png">
+  <img width="569" height="305" src="https://github.com/elihaimov1992/OOP_EX2-EX4/blob/master/packman.PNG?raw=true">
 </p>
